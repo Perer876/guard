@@ -1,0 +1,29 @@
+{
+    "name": "guard/guard",
+    "version": "0.1.0",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Guard\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oscar Arambula",
+            "email": "peteroso876@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.4"
+    },
+    "require-dev": {
+        "carthage-software/mago": "^0.26.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "carthage-software/mago": true
+        }
+    }
+}
