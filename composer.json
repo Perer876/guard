@@ -8,6 +8,12 @@
             "Guard\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Guard\\Tests\\Unit\\": "tests/unit",
+            "Guard\\Tests\\Fixture\\": "tests/fixture"
+        }
+    },
     "authors": [
         {
             "name": "Oscar Arambula",
