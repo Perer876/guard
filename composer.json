@@ -19,7 +19,8 @@
         "php": ">=8.4"
     },
     "require-dev": {
-        "carthage-software/mago": "^0.26.1"
+        "carthage-software/mago": "^0.26.1",
+        "phpunit/phpunit": "^12.2"
     },
     "config": {
         "allow-plugins": {

@@ -10,5 +10,11 @@
 # Mac DS_Store files
 .DS_Store
 
+# PHPUnit cache files
+/.phpunit.cache
+
+# Composer lock
+composer.lock
+
 # mago binary
 mago
