@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Guard\Tests\Unit;
+
+use Guard\Guard;
+use Guard\JustInTimeGuard;
+use Guard\Permission;
+use Guard\Role;
+use Guard\Subject;
+use Guard\Tests\Fixture\ExamplePermission;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversClassesThatImplementInterface;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\TestCase;
+
+#[Small]
+#[CoversClass(JustInTimeGuard::class)]
+#[CoversClassesThatImplementInterface(Guard::class)]
+final class JustInTimeGuardTest extends TestCase
+{
+    /**
+     * @throws Exception
+     */
+    #[Test]
+    #[DataProviderExternal(ExamplePermission::class, 'rolesMappingProvider')]
+    public function itCanCheckPermission(Permission $permission, Role $role, bool $expected): void
+    {
+        $guard = new JustInTimeGuard();
+        $subject = $this->createMock(Subject::class);
+
+        // Mock the subject's roles
+        $subject->method('getRoles')->willReturn([$role]);
+
+        // Check if the subject can perform the permission
+        self::assertSame($expected, $guard->can($subject, $permission));
+    }
+}

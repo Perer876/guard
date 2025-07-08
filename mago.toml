@@ -17,6 +17,27 @@ default_plugins = true
 plugins = []
 
 # NAMING
+
 [[linter.rules]]
 name = "naming/interface"
 psr = false
+
+[[linter.rules]]
+name = "naming/trait"
+psr = false
+
+# BEST PRACTICES
+
+[[linter.rules]]
+name = "best-practices/literal-named-argument"
+level = "off"
+
+[[linter.rules]]
+name = "best-practices/no-boolean-flag-parameter"
+level = "off"
+
+# COMMENT
+
+[[linter.rules]]
+name = "comment/no-untagged-todo"
+level = "off"
