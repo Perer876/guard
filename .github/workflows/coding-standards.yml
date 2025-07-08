@@ -1,0 +1,39 @@
+name: "Coding standards"
+
+on:
+  pull_request: ~
+  push: ~
+
+jobs:
+  coding-standards:
+    name: "Coding standards"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Installing PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.4"
+          tools: composer:v2, cs2pr
+          extensions: mbstring, json
+
+      - name: "Caching dependencies"
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.composer/cache
+            vendor
+          key: "php-${{ matrix.php-version }}"
+          restore-keys: "php-${{ matrix.php-version }}"
+
+      - name: "Installing dependencies"
+        run: |
+          composer install --no-interaction --no-progress --prefer-dist
+
+      - name: "Formatting"
+        run: ./vendor/bin/mago fmt --dry-run
+
+      - name: "Linting"
+        run: ./vendor/bin/mago lint --reporting-format=github
