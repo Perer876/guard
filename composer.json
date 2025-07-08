@@ -33,5 +33,17 @@
         "allow-plugins": {
             "carthage-software/mago": true
         }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
+        ],
+        "fmt": [
+            "vendor/bin/mago fmt",
+            "vendor/bin/mago lint --fix --potentially-unsafe --fmt"
+        ],
+        "lint": [
+            "vendor/bin/mago lint --minimum-level=note"
+        ]
     }
 }
