@@ -23,9 +23,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClassesThatImplementInterface(Guard::class)]
 final class JustInTimeGuardTest extends TestCase
 {
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     #[Test]
     #[DataProviderExternal(ExamplePermission::class, 'rolesMappingProvider')]
     public function itCanCheckPermission(Permission $permission, Role $role, bool $expected): void
@@ -38,5 +36,19 @@ final class JustInTimeGuardTest extends TestCase
 
         // Check if the subject can perform the permission
         self::assertSame($expected, $guard->can($subject, $permission));
+    }
+
+    /** @throws Exception */
+    #[Test]
+    public function itCanCheckPermissionAgainstNoRoles(): void
+    {
+        $guard = new JustInTimeGuard();
+        $subject = $this->createMock(Subject::class);
+
+        // Mock the subject to have no roles
+        $subject->method('getRoles')->willReturn([]);
+
+        // Check if the subject can perform any permission
+        self::assertFalse($guard->can($subject, ExamplePermission::ViewAny));
     }
 }
