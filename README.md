@@ -102,7 +102,7 @@ $user->hasPermission(TodoPermission::ViewAny);
 
 You can install the package via Composer:
 ```bash
-composer require guard/permission
+composer require perer876/permission
 ```
 
 ## Documentation

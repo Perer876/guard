@@ -1,5 +1,5 @@
 {
-    "name": "guard/permission",
+    "name": "perer876/permission",
     "description": "Lightweight, enum-based definition, querying and mapping of permissions in PHP applications.",
     "version": "0.1.0",
     "type": "library",
