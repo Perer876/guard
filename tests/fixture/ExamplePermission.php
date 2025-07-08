@@ -31,7 +31,7 @@ enum ExamplePermission implements Permission
      *
      * @return Generator<int, array{0: Permission, 1: Role, 2: boolean}, mixed, void>
      */
-    public static function rolesMappingProvider(): Generator
+    public static function permissionAndRoleMappingProvider(): Generator
     {
         yield [self::ViewAny, ExampleRole::Admin, true];
         yield [self::ViewAny, ExampleRole::User, true];
@@ -48,5 +48,29 @@ enum ExamplePermission implements Permission
         yield [self::Delete, ExampleRole::Admin, true];
         yield [self::Delete, ExampleRole::User, false];
         yield [self::Delete, ExampleRole::Guest, false];
+    }
+
+    /**
+     * Provides a data provider for testing role mappings against permissions.
+     *
+     * @return Generator<int, array{0: Permission, 1: Role, 2: boolean}, mixed, void>
+     */
+    public static function permissionAndRolesMappingProvider(): Generator
+    {
+        yield 'All granted' => [
+            self::ViewAny,
+            [ExampleRole::Admin, ExampleRole::User],
+            true,
+        ];
+        yield 'Just one granted' => [
+            self::ViewAny,
+            [ExampleRole::Admin, ExampleRole::Guest],
+            true,
+        ];
+        yield 'None granted' => [
+            self::Delete,
+            [ExampleRole::Guest, ExampleRole::User],
+            false,
+        ];
     }
 }

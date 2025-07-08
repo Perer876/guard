@@ -25,14 +25,32 @@ final class JustInTimeGuardTest extends TestCase
 {
     /** @throws Exception */
     #[Test]
-    #[DataProviderExternal(ExamplePermission::class, 'rolesMappingProvider')]
+    #[DataProviderExternal(ExamplePermission::class, 'permissionAndRoleMappingProvider')]
     public function itCanCheckPermission(Permission $permission, Role $role, bool $expected): void
     {
         $guard = new JustInTimeGuard();
         $subject = $this->createMock(Subject::class);
 
-        // Mock the subject's roles
+        // Mock the subject's role
         $subject->method('getRoles')->willReturn([$role]);
+
+        // Check if the subject can perform the permission
+        self::assertSame($expected, $guard->can($subject, $permission));
+    }
+
+    /**
+     * @param iterable<Role> $roles
+     * @throws Exception
+     */
+    #[Test]
+    #[DataProviderExternal(ExamplePermission::class, 'permissionAndRolesMappingProvider')]
+    public function itCanCheckPermissionAgainstMultipleRoles(Permission $permission, iterable $roles, bool $expected): void
+    {
+        $guard = new JustInTimeGuard();
+        $subject = $this->createMock(Subject::class);
+
+        // Mock the subject's roles
+        $subject->method('getRoles')->willReturn($roles);
 
         // Check if the subject can perform the permission
         self::assertSame($expected, $guard->can($subject, $permission));
