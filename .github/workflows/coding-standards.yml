@@ -25,12 +25,13 @@ jobs:
           path: |
             ~/.composer/cache
             vendor
-          key: "php-${{ matrix.php-version }}"
-          restore-keys: "php-${{ matrix.php-version }}"
+          key: "php-8.4"
+          restore-keys: "php-8.4"
 
       - name: "Installing dependencies"
         run: |
           composer install --no-interaction --no-progress --prefer-dist
+          composer mago:install-binary
 
       - name: "Formatting"
         run: ./vendor/bin/mago fmt --dry-run
