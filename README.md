@@ -35,13 +35,13 @@ namespace App\Permissions;
 use Guard\GrantTo;
 use Guard\Permission;
 
-#[GrantTo(UserRole::Admin)]
+#[GrantTo(UserRole::Admin)] // <- Top level: It's granted to all permissions
 enum TodoPermission implements Permission
 {
-    #[GrantTo(UserRole::Member)]
+    #[GrantTo(UserRole::Member)] // <- Fine-grained: It's granted to this specific permission
     case ViewAny;
 
-    #[GrantTo(UserRole::Member, UserRole::Viewer)]
+    #[GrantTo(UserRole::Member, UserRole::Viewer)] // <- Multiple roles can be granted
     case View;
 
     #[GrantTo(UserRole::Member)]
