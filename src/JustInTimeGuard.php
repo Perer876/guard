@@ -18,9 +18,7 @@ use SplObjectStorage;
  */
 final readonly class JustInTimeGuard implements Guard
 {
-    /**
-     * @throws ReflectionException
-     */
+    /** @throws ReflectionException */
     #[Override]
     public function can(Subject $subject, Permission $permission): bool
     {
