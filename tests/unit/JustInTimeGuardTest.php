@@ -10,6 +10,7 @@ use Guard\Permission;
 use Guard\Role;
 use Guard\Subject;
 use Guard\Tests\Fixture\ExamplePermission;
+use Guard\Tests\Fixture\ExampleRole;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversClassesThatImplementInterface;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
@@ -44,8 +45,11 @@ final class JustInTimeGuardTest extends TestCase
      */
     #[Test]
     #[DataProviderExternal(ExamplePermission::class, 'permissionAndRolesMappingProvider')]
-    public function itCanCheckPermissionAgainstMultipleRoles(Permission $permission, iterable $roles, bool $expected): void
-    {
+    public function itCanCheckPermissionAgainstMultipleRoles(
+        Permission $permission,
+        iterable $roles,
+        bool $expected,
+    ): void {
         $guard = new JustInTimeGuard();
         $subject = $this->createMock(Subject::class);
 
@@ -68,5 +72,23 @@ final class JustInTimeGuardTest extends TestCase
 
         // Check if the subject can perform any permission
         self::assertFalse($guard->can($subject, ExamplePermission::ViewAny));
+        self::assertFalse($guard->can($subject, ExamplePermission::View));
+        self::assertFalse($guard->can($subject, ExamplePermission::Create));
+        self::assertFalse($guard->can($subject, ExamplePermission::Update));
+        self::assertFalse($guard->can($subject, ExamplePermission::Delete));
+    }
+
+    /** @throws Exception */
+    #[Test]
+    public function itCanCheckPermissionAgainstDuplicatedRoles(): void
+    {
+        $guard = new JustInTimeGuard();
+        $subject = $this->createMock(Subject::class);
+
+        // Mock the subject to have duplicated roles
+        $subject->method('getRoles')->willReturn([ExampleRole::User, ExampleRole::User]);
+
+        self::assertTrue($guard->can($subject, ExamplePermission::View));
+        self::assertFalse($guard->can($subject, ExamplePermission::Delete));
     }
 }
