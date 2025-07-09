@@ -104,7 +104,7 @@ $user->hasPermission(TodoPermission::ViewAny);
 
 You can install the package via Composer:
 ```bash
-composer require perer876/permission:v1.0.0-alpha.1
+composer require perer876/permission:v1.0.0-alpha.2
 ```
 
 ## Documentation
