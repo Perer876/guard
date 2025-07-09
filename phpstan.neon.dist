@@ -1,0 +1,24 @@
+includes:
+	- vendor/spaze/phpstan-disallowed-calls/extension.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+
+parameters:
+	level: 10
+	paths:
+		- src
+		- tests
+
+	disallowedFunctionCalls:
+		-
+			function: 'exec()'
+		-
+			function: 'eval()'
+		-
+			function: 'dd()'
+		-
+			function: 'dump()'
+		-
+			function: 'phpinfo()'
+		-
+			function: 'var_dump()'

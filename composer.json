@@ -26,7 +26,11 @@
     },
     "require-dev": {
         "carthage-software/mago": "^0.26.1",
-        "phpunit/phpunit": "^12.2"
+        "phpunit/phpunit": "^12.2",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "spaze/phpstan-disallowed-calls": "^4.5"
     },
     "config": {
         "allow-plugins": {
@@ -43,6 +47,9 @@
         ],
         "lint": [
             "vendor/bin/mago lint --minimum-level=note"
+        ],
+        "analyze": [
+            "vendor/bin/phpstan analyse --memory-limit=2G"
         ]
     }
 }
