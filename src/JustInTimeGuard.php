@@ -7,7 +7,6 @@ namespace Guard;
 use Override;
 use ReflectionAttribute;
 use ReflectionEnum;
-use ReflectionException;
 use SplObjectStorage;
 
 /**
@@ -18,14 +17,13 @@ use SplObjectStorage;
  */
 final readonly class JustInTimeGuard implements Guard
 {
-    /** @throws ReflectionException */
     #[Override]
     public function can(Subject $subject, Permission $permission): bool
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $enumReflection = new ReflectionEnum($permission::class);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $caseReflection = $enumReflection->getCase($permission->name);
-
-        $grantedRoles = new SplObjectStorage();
 
         /** @var ReflectionAttribute<GrantToAttribute>[] $grantsToAttribute $grantsTo */
         $grantsToAttribute = [
@@ -33,8 +31,9 @@ final readonly class JustInTimeGuard implements Guard
             ...$caseReflection->getAttributes(GrantToAttribute::class, ReflectionAttribute::IS_INSTANCEOF),
         ];
 
+        $grantedRoles = new SplObjectStorage();
+
         foreach ($grantsToAttribute as $grantToAttribute) {
-            /** @var GrantToAttribute $grantTo */
             $grantTo = $grantToAttribute->newInstance();
             $grantedRoles->addAll($grantTo->roles);
         }
