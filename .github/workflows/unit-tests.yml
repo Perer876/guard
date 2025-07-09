@@ -6,7 +6,7 @@ on:
 
 jobs:
   unit-tests:
-    name: "Tests"
+    name: "PHPUnit"
 
     runs-on: ${{ matrix.operating-system }}
 

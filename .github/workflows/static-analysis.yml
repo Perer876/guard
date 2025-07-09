@@ -1,12 +1,12 @@
-name: "Coding standards"
+name: "Static analysis"
 
 on:
   pull_request: ~
   push: ~
 
 jobs:
-  coding-standards:
-    name: "Mago"
+  static-analysis:
+    name: "PHPStan"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
@@ -31,10 +31,7 @@ jobs:
       - name: "Installing dependencies"
         run: |
           composer install --no-interaction --no-progress --prefer-dist
-          composer mago:install-binary
 
-      - name: "Formatting"
-        run: ./vendor/bin/mago fmt --dry-run
-
-      - name: "Linting"
-        run: ./vendor/bin/mago lint --reporting-format=github
+      - name: Run PHPStan
+        run: |
+         vendor/bin/phpstan --error-format=github
