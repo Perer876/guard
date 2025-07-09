@@ -53,7 +53,7 @@ enum ExamplePermission implements Permission
     /**
      * Provides a data provider for testing role mappings against permissions.
      *
-     * @return Generator<int, array{0: Permission, 1: Role, 2: boolean}, mixed, void>
+     * @return Generator<string, array{0: Permission, 1: iterable<Role>, 2: boolean}, mixed, void>
      */
     public static function permissionAndRolesMappingProvider(): Generator
     {

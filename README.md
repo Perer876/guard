@@ -68,12 +68,14 @@ use App\Permissions\UserRole;
 use Guard\AsSubject;
 use Guard\Subject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Override;
 
 final class User extends Authenticatable implements Subject
 {
     use AsSubject;
     
     /** @return UserRole[] */
+    #[Override]
     public function getRoles(): array
     {
         // Return an array of roles for the user

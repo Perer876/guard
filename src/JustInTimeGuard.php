@@ -31,6 +31,7 @@ final readonly class JustInTimeGuard implements Guard
             ...$caseReflection->getAttributes(GrantToAttribute::class, ReflectionAttribute::IS_INSTANCEOF),
         ];
 
+        /** @var SplObjectStorage<Role, null> $grantedRoles */
         $grantedRoles = new SplObjectStorage();
 
         foreach ($grantsToAttribute as $grantToAttribute) {
@@ -38,6 +39,9 @@ final readonly class JustInTimeGuard implements Guard
             $grantedRoles->addAll($grantTo->roles);
         }
 
-        return array_any($subject->getRoles(), static fn(Role $role): bool => $grantedRoles->contains($role));
+        return array_any(
+            iterator_to_array($subject->getRoles()),
+            static fn(Role $role): bool => $grantedRoles->contains($role),
+        );
     }
 }
