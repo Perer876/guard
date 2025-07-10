@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Guard\Tests\Unit;
 
+use Guard\GrantTo;
 use Guard\Guard;
 use Guard\JustInTimeGuard;
 use Guard\Permission;
@@ -21,6 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 #[Small]
 #[CoversClass(JustInTimeGuard::class)]
+#[CoversClass(GrantTo::class)]
 #[CoversClassesThatImplementInterface(Guard::class)]
 final class JustInTimeGuardTest extends TestCase
 {

@@ -13,6 +13,9 @@
 # PHPUnit cache files
 /.phpunit.cache
 
+# PHPUnit coverage files
+build/
+
 # Composer lock
 composer.lock
 

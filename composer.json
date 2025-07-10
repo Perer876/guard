@@ -50,6 +50,10 @@
         ],
         "analyze": [
             "vendor/bin/phpstan analyse --memory-limit=2G"
+        ],
+        "coverage": [
+            "vendor/bin/phpunit --coverage-html coverage --coverage-text",
+            "vendor/bin/phpunit --coverage-html build/reports/html --coverage-clover build/reports/clover.xml"
         ]
     }
 }
