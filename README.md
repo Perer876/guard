@@ -74,12 +74,11 @@ final class User extends Authenticatable implements Subject
 {
     use AsSubject;
     
-    /** @return UserRole[] */
+    /** @return iterable<UserRole> */
     #[Override]
-    public function getRoles(): array
+    public function getRoles(): iterable
     {
-        // Return an array of roles for the user
-        return [$this->role];
+        yield $this->role;
     }
     
     /** @return array<string, string> */
