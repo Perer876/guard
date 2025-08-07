@@ -17,16 +17,16 @@ use PHPUnit\Framework\Attributes\CoversClassesThatImplementInterface;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\Attributes\UsesFunction;
 use PHPUnit\Framework\TestCase;
 
 #[Small]
 #[CoversClass(JustInTimeGuard::class)]
 #[CoversClass(GrantTo::class)]
 #[CoversClassesThatImplementInterface(Guard::class)]
+#[UsesFunction('Guard\granted_roles')]
 final class JustInTimeGuardTest extends TestCase
 {
-    /** @throws Exception */
     #[Test]
     #[DataProviderExternal(ExamplePermission::class, 'permissionAndRoleMappingProvider')]
     public function itCanCheckPermission(Permission $permission, Role $role, bool $expected): void
@@ -43,7 +43,6 @@ final class JustInTimeGuardTest extends TestCase
 
     /**
      * @param iterable<Role> $roles
-     * @throws Exception
      */
     #[Test]
     #[DataProviderExternal(ExamplePermission::class, 'permissionAndRolesMappingProvider')]
@@ -62,7 +61,6 @@ final class JustInTimeGuardTest extends TestCase
         self::assertSame($expected, $guard->can($subject, $permission));
     }
 
-    /** @throws Exception */
     #[Test]
     public function itCanCheckPermissionAgainstNoRoles(): void
     {
@@ -80,7 +78,6 @@ final class JustInTimeGuardTest extends TestCase
         self::assertFalse($guard->can($subject, ExamplePermission::Delete));
     }
 
-    /** @throws Exception */
     #[Test]
     public function itCanCheckPermissionAgainstDuplicatedRoles(): void
     {

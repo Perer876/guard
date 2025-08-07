@@ -27,8 +27,18 @@ enum ExamplePermission implements Permission
     case Delete;
 
     /**
-     * Provides a data provider for testing role mappings against permissions.
-     *
+     * @return Generator<int, array{0: Permission, 1: list<Role>}, mixed, void>
+     */
+    public static function permissionAndRolesProvider(): Generator
+    {
+        yield [self::ViewAny, [ExampleRole::Admin, ExampleRole::User]];
+        yield [self::View, [ExampleRole::Admin, ExampleRole::User, ExampleRole::Guest]];
+        yield [self::Create, [ExampleRole::Admin, ExampleRole::User, ExampleRole::Guest]];
+        yield [self::Update, [ExampleRole::Admin, ExampleRole::User]];
+        yield [self::Delete, [ExampleRole::Admin]];
+    }
+
+    /**
      * @return Generator<int, array{0: Permission, 1: Role, 2: boolean}, mixed, void>
      */
     public static function permissionAndRoleMappingProvider(): Generator
@@ -51,8 +61,6 @@ enum ExamplePermission implements Permission
     }
 
     /**
-     * Provides a data provider for testing role mappings against permissions.
-     *
      * @return Generator<string, array{0: Permission, 1: iterable<Role>, 2: boolean}, mixed, void>
      */
     public static function permissionAndRolesMappingProvider(): Generator

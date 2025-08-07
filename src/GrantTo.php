@@ -7,6 +7,12 @@ namespace Guard;
 use Attribute;
 use SplObjectStorage as ObjectStorage;
 
+/**
+ * Attribute to specify which roles are granted to a permission.
+ *
+ * This attribute can be applied to a class or a class constant and can be repeated
+ * to grant multiple roles to the same permission.
+ */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_CLASS_CONSTANT | Attribute::IS_REPEATABLE)]
 final readonly class GrantTo implements GrantToAttribute
 {
